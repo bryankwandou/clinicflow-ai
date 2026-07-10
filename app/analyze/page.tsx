@@ -118,7 +118,7 @@ export default function AnalyzePage() {
             <ArrowLeft size={15} aria-hidden="true" /> Beranda
           </a>
           <h1 className="text-3xl font-semibold tracking-tight">Analisis Kelayakan Startup</h1>
-          <p className="text-muted mt-2.5 text-[15px]">Isi parameter untuk menjalankan analisis 9 agen AI.</p>
+          <p className="text-muted mt-2.5 text-[15px]">Isi parameter idemu — sembilan agen akan mengerjakan sisanya.</p>
         </div>
 
         {/* Progress */}
@@ -201,7 +201,7 @@ export default function AnalyzePage() {
                 onClick={() => setStep(2)}
                 className="w-full py-2.5 bg-accent hover:bg-accent-600 rounded-xl font-medium flex items-center justify-center gap-2 transition-[background-color,transform] duration-150 active:translate-y-px focus-ring"
               >
-                Lanjut Step 2 <ArrowRight size={18} />
+                Lanjut ke Langkah 2 <ArrowRight size={18} />
               </button>
             </div>
           )}
@@ -292,7 +292,7 @@ export default function AnalyzePage() {
                 </button>
                 <button type="button" onClick={() => setStep(3)}
                   className="flex-1 py-2.5 bg-accent hover:bg-accent-600 rounded-xl font-medium flex items-center justify-center gap-2 transition-[background-color,transform] duration-150 active:translate-y-px focus-ring">
-                  Lanjut Step 3 <ArrowRight size={18} />
+                  Lanjut ke Langkah 3 <ArrowRight size={18} />
                 </button>
               </div>
             </div>

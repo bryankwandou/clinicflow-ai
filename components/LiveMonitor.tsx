@@ -133,7 +133,7 @@ export function LiveMonitor({ sessionId, onComplete }: Props) {
   }, [sessionId, onComplete]);
 
   return (
-    <div className="glass-card rounded-2xl p-6 sticky top-6">
+    <div className="glass-card rounded-2xl p-6">
       <h3 className="font-semibold text-sm mb-5 flex items-center gap-2">
         <span>Progress Analisis</span>
         <span className="ml-auto text-accent-fg text-sm font-mono tnum">{overallProgress}%</span>
@@ -209,7 +209,7 @@ export function LiveMonitor({ sessionId, onComplete }: Props) {
 
       {isComplete && (
         <div className="mt-5 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-center">
-          <p className="text-green-400 font-semibold text-sm">Analisis Selesai!</p>
+          <p className="text-green-400 font-semibold text-sm">Analisis selesai</p>
           <p className="text-muted text-xs mt-1">Scroll ke bawah untuk laporan lengkap</p>
         </div>
       )}

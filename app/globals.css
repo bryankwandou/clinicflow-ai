@@ -24,6 +24,15 @@ body {
   font-feature-settings: "cv05", "ss01";
 }
 
+/* Native select popups follow the OS theme (white on Windows) — force the
+   dark surface so option text stays readable. */
+select, select option, select optgroup {
+  background-color: var(--bg-elev);
+  color: #e7e9ee;
+}
+select option:disabled { color: #6b7280; }
+select:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* Tabular figures for any number display — no digit jitter. */
 .tnum { font-variant-numeric: tabular-nums; }
 

@@ -14,6 +14,7 @@ import { RegulatoryPanel } from "@/components/RegulatoryPanel";
 import { FinancialPanel } from "@/components/FinancialPanel";
 import { RecommendationPanel } from "@/components/RecommendationPanel";
 import { PanelBoundary } from "@/components/PanelBoundary";
+import { MethodologyPanel } from "@/components/MethodologyPanel";
 import { toTextList } from "@/lib/utils";
 import type { AnalysisResult } from "@/lib/types";
 
@@ -74,8 +75,9 @@ export default function ResultPage() {
 
         <div className="grid lg:grid-cols-[280px_1fr] gap-6">
 
-          {/* Left: Live Monitor (sticky) */}
-          <div className="space-y-4">
+          {/* Left: Live Monitor — the whole column sticks and scrolls on its own,
+              so the cards below the monitor never get overlapped. */}
+          <div className="space-y-4 lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto lg:pr-1">
             <LiveMonitor sessionId={sessionId} onComplete={handleComplete} />
 
             {/* Monitoring Stats */}
@@ -139,10 +141,10 @@ export default function ResultPage() {
               <div className="glass-card rounded-2xl p-10">
                 <div className="flex items-center gap-3 mb-2">
                   <Loader2 size={18} className="text-accent-fg animate-spin" />
-                  <h2 className="text-base font-semibold">9 Agen AI sedang menganalisis</h2>
+                  <h2 className="text-base font-semibold">Sembilan agen sedang bekerja</h2>
                 </div>
                 <p className="text-muted text-sm mb-8">
-                  7 dimensi penilaian · data real-time Indonesia
+                  Tujuh sifat penilaian · data pasar Indonesia terkini
                 </p>
                 <div className="space-y-3 animate-pulse">
                   <div className="h-28 rounded-xl bg-white/[0.04]" />
@@ -236,6 +238,11 @@ export default function ResultPage() {
                     <FinancialPanel financial={result.financial} />
                   </PanelBoundary>
                 )}
+
+                {/* Dasar teoretis & rujukan — sumber penilaian yang bisa diaudit */}
+                <PanelBoundary name="Dasar Penilaian">
+                  <MethodologyPanel />
+                </PanelBoundary>
 
                 {/* Footer */}
                 <div className="text-center py-10 border-t border-white/[0.06]">
