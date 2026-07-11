@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Brain, BarChart3, Shield, Zap } from "lucide-react";
 import { Reveal, RevealList, RevealItem, WeightBar } from "@/components/Reveal";
+import { NavAuth } from "@/components/NavAuth";
 
 const AGENTS = [
   { name: "Orchestrator", desc: "Membaca parameter masukan lalu menentukan urutan dan prioritas analisis" },
@@ -39,12 +40,15 @@ export default function Home() {
           <span className="text-[15px] font-semibold tracking-tight">
             FeasiFlow <span className="gradient-text">AI</span>
           </span>
-          <Link
-            href="/analyze"
-            className="rounded-lg bg-white/[0.06] hover:bg-white/[0.1] border border-white/10 px-4 py-2 text-sm font-medium text-fg transition-colors duration-150 focus-ring"
-          >
-            Mulai Analisis
-          </Link>
+          <div className="flex items-center gap-2">
+            <NavAuth />
+            <Link
+              href="/analyze"
+              className="rounded-lg bg-accent hover:bg-accent-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-150 focus-ring"
+            >
+              Mulai Analisis
+            </Link>
+          </div>
         </div>
       </nav>
 

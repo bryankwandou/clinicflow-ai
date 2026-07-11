@@ -24,7 +24,14 @@ export default function ResultPage() {
 
   const handleComplete = useCallback((data: AnalysisResult) => {
     setResult(data);
-  }, []);
+    // Persist to the signed-in user's history. Fire-and-forget: a guest
+    // gets a 401 here and the analysis still renders normally.
+    fetch("/api/history", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId, result: data }),
+    }).catch(() => { /* saving is best-effort */ });
+  }, [sessionId]);
 
   const classification = result?.recommendation?.feasibility_score?.classification;
   const classDot =
