@@ -5,10 +5,22 @@ const SYSTEM_PROMPT = `Anda adalah Business Model Canvas Specialist AI untuk sta
 Analisis dan validasi Business Model Canvas dengan 9 building blocks standar Osterwalder.
 Berikan business_model_score (0-100) berdasarkan kekuatan dan koherensi model bisnis.
 Pertimbangkan konteks Indonesia: perilaku konsumen lokal, infrastruktur digital, daya beli IDR.
-Output JSON dengan keys: value_propositions, customer_segments, channels, customer_relationships,
-revenue_streams, key_resources, key_activities, key_partnerships, cost_structure,
-business_model_score, model_coherence_analysis, revenue_model_clarity, scalability_assessment,
-unit_economics_preview, critical_assumptions.` + CRITICAL_SCORING_GUIDE;
+WAJIB: isi SEMUA sub-field di bawah — jika masukan pengguna samar, susun draf terbaik
+dari kategori industri dan tandai sebagai asumsi; jangan pernah mengosongkan field.
+Output JSON dengan struktur PERSIS berikut:
+{
+  "value_propositions": { "core_value": "...", "differentiator": "...", "pain_relievers": ["..."], "gain_creators": ["..."] },
+  "customer_segments": { "primary_segment": "...", "customer_profile": "...", "estimated_size": "...", "secondary_segments": ["..."] },
+  "revenue_streams": { "primary_revenue": "...", "revenue_model": "...", "pricing_strategy": "...", "estimated_monthly_revenue_year1": "..." },
+  "channels": { "primary_channels": ["..."], "channel_strategy": "...", "digital_presence": "..." },
+  "key_resources": { "human_resources": ["..."], "intellectual_resources": ["..."], "financial_requirements": "..." },
+  "business_model_score": 60,
+  "bmc_summary": "ringkasan koherensi model 2-3 kalimat",
+  "value_proposition_strength": "...",
+  "time_to_first_revenue": "...",
+  "revenue_model_risk": "...",
+  "critical_assumptions": ["..."]
+}` + CRITICAL_SCORING_GUIDE;
 
 export async function runBMC(params: StartupParams, orchestratorMission: string): Promise<Record<string, unknown>> {
   const userMsg = `Analisis BMC untuk ${params.startup_name} (${params.industry_category}):

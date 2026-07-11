@@ -162,18 +162,27 @@ export function FinancialPanel({ financial }: Props) {
           <div className="bg-accent/[0.04] border border-accent/20 rounded-xl p-4">
             <p className="text-[11px] font-semibold text-accent-fg mb-2">Rekomendasi Pendanaan</p>
             <div className="space-y-1.5 text-xs">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Jenis:</span>
-                <span className="text-fg">{toText(financial.funding_recommendation.investor_type)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Jumlah:</span>
-                <span className="text-green-300 font-bold">{toText(financial.funding_recommendation.recommended_amount)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Timing:</span>
-                <span className="text-muted">{toText(financial.funding_recommendation.next_fundraise_timing)}</span>
-              </div>
+              {typeof financial.funding_recommendation === "string" && (
+                <p className="text-muted">{financial.funding_recommendation}</p>
+              )}
+              {toText(financial.funding_recommendation.investor_type) && (
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Jenis:</span>
+                  <span className="text-fg">{toText(financial.funding_recommendation.investor_type)}</span>
+                </div>
+              )}
+              {toText(financial.funding_recommendation.recommended_amount) && (
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Jumlah:</span>
+                  <span className="text-green-300 font-bold">{toText(financial.funding_recommendation.recommended_amount)}</span>
+                </div>
+              )}
+              {toText(financial.funding_recommendation.next_fundraise_timing) && (
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Timing:</span>
+                  <span className="text-muted">{toText(financial.funding_recommendation.next_fundraise_timing)}</span>
+                </div>
+              )}
               {useOfFunds.length > 0 && (
                 <div className="mt-2 pt-2 border-t border-gray-700/50">
                   <p className="text-gray-500 mb-1">Alokasi dana:</p>

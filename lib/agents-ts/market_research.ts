@@ -6,10 +6,23 @@ const SYSTEM_PROMPT = `Anda adalah Market Research Intelligence Agent AI untuk s
 Analisis ukuran pasar, tren, dan potensi pertumbuhan berdasarkan data pencarian terkini.
 Berikan market_score (0-100) sebagai bobot 20% dari skor final.
 Sifat penilaian: ukuran TAM/SAM/SOM, tren pertumbuhan YoY, penetrasi digital, daya beli, timing pasar.
-Output JSON dengan keys: total_addressable_market, serviceable_addressable_market,
-serviceable_obtainable_market, market_growth_rate, market_trends (array), digital_penetration,
-consumer_behavior_insights, market_timing_assessment, market_score, market_size_idr,
-growth_drivers (array), market_risks (array), data_sources (array).` + CRITICAL_SCORING_GUIDE;
+WAJIB: isi SEMUA field di bawah. Jika data pencarian tidak memuat angka pasti,
+berikan estimasi kasar yang masuk akal untuk pasar Indonesia beserta asumsinya —
+jangan pernah mengosongkan field.
+Output JSON dengan struktur PERSIS berikut:
+{
+  "market_overview": "ringkasan pasar 2-3 kalimat",
+  "tam": { "value": "mis. Rp 45 T", "description": "dasar estimasi" },
+  "sam": { "value": "mis. Rp 6,8 T", "percentage_of_tam": "mis. 15%" },
+  "som": { "year_1_target": "mis. Rp 12 M", "description": "asumsi penetrasi" },
+  "growth_rate": "mis. 18% YoY",
+  "market_maturity": "Emerging|Growing|Mature|Declining",
+  "market_trends": ["array tren"],
+  "key_market_drivers": ["array pendorong"],
+  "regulatory_environment": "catatan regulasi singkat",
+  "market_score": 75,
+  "data_sources": ["sumber yang dipakai"]
+}` + CRITICAL_SCORING_GUIDE;
 
 export async function runMarketResearch(
   params: StartupParams,
