@@ -323,17 +323,36 @@ export default function AnalyzePage() {
                     of a vague description before submitting. */}
                 {(() => {
                   const t = descText.toLowerCase();
+                  // Broad synonym nets — the gauge should recognize an element
+                  // however the founder phrases it, not demand magic words.
                   const checks = [
-                    { label: "Masalah yang diselesaikan", ok: /masalah|problem|kesulitan|kendala|keluhan/.test(t) },
-                    { label: "Target pengguna", ok: /target|pengguna|pelanggan|user|konsumen|segmen/.test(t) },
-                    { label: "Solusi yang ditawarkan", ok: /solusi|aplikasi|platform|layanan|produk|sistem/.test(t) },
-                    { label: "Rencana pendapatan", ok: /monetisasi|pendapatan|harga|langganan|komisi|revenue|bayar/.test(t) },
+                    {
+                      label: "Masalah yang diselesaikan",
+                      hint: "sebutkan kesulitan nyata yang dialami calon pengguna hari ini",
+                      ok: /masalah|problem|kesulitan|kendala|keluhan|sulit|mahal|lambat|tidak (ada|bisa|aman|transparan)|belum (ada|tersedia)|rentan|rawan|hilang|bocor|terbatas|akses/.test(t),
+                    },
+                    {
+                      label: "Target pengguna",
+                      hint: "siapa pemakainya: pasien, dokter, siswa, UMKM, klinik...",
+                      ok: /target|pengguna|pelanggan|user|konsumen|segmen|pasien|dokter|perawat|rumah sakit|klinik|siswa|mahasiswa|guru|petani|umkm|merchant|penjual|pembeli|orang tua|karyawan|perusahaan|founder/.test(t),
+                    },
+                    {
+                      label: "Solusi yang ditawarkan",
+                      hint: "apa yang dibangun dan cara kerjanya singkat",
+                      ok: /solusi|aplikasi|platform|layanan|produk|sistem|blockchain|website|dashboard|marketplace|bot|ai|otomatis|integrasi|fitur|teknologi|penyimpanan|database/.test(t),
+                    },
+                    {
+                      label: "Rencana pendapatan",
+                      hint: "dari mana uang masuk: langganan, komisi, lisensi, iklan...",
+                      ok: /monetisasi|pendapatan|harga|langganan|komisi|revenue|bayar|biaya|lisensi|subscription|fee|iklan|premium|freemium|b2b|jual|tarif|paket|sewa/.test(t),
+                    },
                   ];
                   const hit = checks.filter((c) => c.ok).length;
                   const score = hit + (descText.length >= 150 ? 1 : 0);
                   const verdict = score >= 4 ? { label: "Kuat", cls: "text-emerald-400" }
                     : score >= 2 ? { label: "Sedang", cls: "text-amber-300" }
                     : { label: "Lemah", cls: "text-rose-400" };
+                  const missing = checks.filter((c) => !c.ok);
                   return (
                     <div className="mt-3 rounded-xl border border-white/[0.07] bg-white/[0.02] p-3.5">
                       <div className="flex justify-between items-baseline mb-2">
@@ -347,10 +366,30 @@ export default function AnalyzePage() {
                           </span>
                         ))}
                       </div>
+                      {missing.length > 0 && (
+                        <div className="mt-2.5 pt-2.5 border-t border-white/[0.06] space-y-1">
+                          <p className="text-[11px] font-medium text-amber-300">Yang perlu ditambahkan:</p>
+                          {missing.map((c) => (
+                            <p key={c.label} className="text-[11px] text-muted leading-relaxed">
+                              · <span className="text-fg">{c.label}</span> — {c.hint}
+                            </p>
+                          ))}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const tpl = `${descText.trim()}\n\nMasalah: [kesulitan nyata yang dialami pengguna saat ini]\nTarget pengguna: [siapa yang memakai dan siapa yang membayar]\nSolusi: [apa yang dibangun dan cara kerjanya]\nMonetisasi: [sumber pendapatan, contoh: langganan Rp X/bulan]\nKeunggulan: [kenapa lebih baik dari yang sudah ada]`;
+                              setValue("ideaDescription", tpl.slice(0, 2000), { shouldValidate: true });
+                            }}
+                            className="mt-1.5 text-[11px] text-accent-fg hover:underline focus-ring rounded"
+                          >
+                            Sisipkan kerangka 5 unsur ke deskripsi →
+                          </button>
+                        </div>
+                      )}
                       <p className="text-[11px] text-faint mt-2 leading-relaxed">
-                        Deskripsi yang samar tetap dianalisis, tetapi skor akhir dikenai
-                        penalti kualitas masukan — makin lengkap empat unsur di atas,
-                        makin bisa dipercaya hasilnya.
+                        Indikator ini pratinjau heuristik; penilaian resmi dilakukan
+                        Orchestrator saat analisis. Deskripsi samar tetap dianalisis,
+                        tetapi skor akhir dikenai penalti kualitas masukan.
                       </p>
                     </div>
                   );
