@@ -12,7 +12,7 @@ export function CompetitorTable({ competitor }: { competitor: AnalysisResult["co
   return (
     <div className="glass-card rounded-2xl p-6">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-base font-semibold">Analisis Kompetitor</h2>
+        <h2 className="text-[16px] text-fg font-semibold">Analisis Kompetitor</h2>
         <div className="text-right">
           <span className="text-2xl font-semibold text-sky-400 tnum">
             {toNum(competitor?.competitive_advantage_score)}<span className="text-sm text-faint">/100</span>

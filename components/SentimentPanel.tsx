@@ -42,7 +42,7 @@ export function SentimentPanel({ sentiment }: Props) {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h3 className="text-base font-semibold">Sentiment &amp; Social Intelligence</h3>
+          <h3 className="text-[16px] text-fg font-semibold">Sentiment &amp; Social Intelligence</h3>
           <p className="text-muted text-xs mt-1">
             7 metode scraping real-time · Validasi demand publik
           </p>

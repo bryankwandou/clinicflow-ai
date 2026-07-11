@@ -14,7 +14,7 @@ export function MarketChart({ market }: { market: AnalysisResult["market"] }) {
 
   return (
     <div className="glass-card rounded-2xl p-6">
-      <h2 className="text-base font-semibold mb-5">Market Research</h2>
+      <h2 className="text-[16px] text-fg font-semibold mb-5">Market Research</h2>
 
       <p className="text-muted text-sm mb-6">{toText(market?.market_overview)}</p>
 
@@ -22,7 +22,7 @@ export function MarketChart({ market }: { market: AnalysisResult["market"] }) {
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
           { label: "TAM", value: market?.tam?.value, sub: "Total Addressable Market", color: "from-blue-600 to-blue-400" },
-          { label: "SAM", value: market?.sam?.value, sub: market?.sam?.percentage_of_tam + " dari TAM", color: "from-purple-600 to-purple-400" },
+          { label: "SAM", value: market?.sam?.value, sub: market?.sam?.percentage_of_tam ? `${toText(market.sam.percentage_of_tam)} dari TAM` : "Serviceable Market", color: "from-purple-600 to-purple-400" },
           { label: "SOM", value: market?.som?.year_1_target, sub: "Target Tahun 1", color: "from-green-600 to-green-400" },
         ].map(({ label, value, sub, color }) => (
           <div key={label} className={`rounded-xl p-4 border border-white/[0.08] bg-white/[0.03] text-center`}>
@@ -37,11 +37,11 @@ export function MarketChart({ market }: { market: AnalysisResult["market"] }) {
       <div className="flex gap-4 mb-6">
         <div className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 text-center">
           <div className="text-xs text-faint">Growth Rate</div>
-          <div className="text-green-400 font-bold text-sm mt-1">{toText(market?.growth_rate)}</div>
+          <div className="text-green-400 font-bold text-sm mt-1">{toText(market?.growth_rate) || "—"}</div>
         </div>
         <div className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl p-3 text-center">
           <div className="text-xs text-faint">Market Stage</div>
-          <div className={`font-bold text-sm mt-1 ${maturityColor}`}>{toText(market?.market_maturity)}</div>
+          <div className={`font-bold text-sm mt-1 ${maturityColor}`}>{toText(market?.market_maturity) || "—"}</div>
         </div>
       </div>
 

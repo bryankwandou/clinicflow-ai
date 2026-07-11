@@ -29,7 +29,7 @@ export function RecommendationPanel({ rec }: { rec: AnalysisResult["recommendati
   return (
     <div className="glass-card rounded-2xl p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold">Rekomendasi Strategis</h2>
+        <h2 className="text-[16px] text-fg font-semibold">Rekomendasi Strategis</h2>
         <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${goColor}`}>
           {goIcon} {goNogo}
         </span>

@@ -48,7 +48,7 @@ export function FeasibilityScore({ data }: { data: FScore }) {
   return (
     <div className="glass-card rounded-2xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-base font-semibold">Skor Kelayakan Final</h2>
+        <h2 className="text-[16px] text-fg font-semibold">Skor Kelayakan Final</h2>
         <span className="text-[11px] text-faint border border-white/[0.06] bg-white/[0.02] px-2.5 py-1 rounded-lg font-mono">
           7 Dimensi · 9 Agen
         </span>

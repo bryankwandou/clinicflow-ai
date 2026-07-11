@@ -141,7 +141,7 @@ export default function ResultPage() {
               <div className="glass-card rounded-2xl p-10">
                 <div className="flex items-center gap-3 mb-2">
                   <Loader2 size={18} className="text-accent-fg animate-spin" />
-                  <h2 className="text-base font-semibold">Sembilan agen sedang bekerja</h2>
+                  <h2 className="text-[16px] text-fg font-semibold">Sembilan agen sedang bekerja</h2>
                 </div>
                 <p className="text-muted text-sm mb-8">
                   Tujuh sifat penilaian · data pasar Indonesia terkini

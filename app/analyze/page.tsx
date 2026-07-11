@@ -145,7 +145,7 @@ export default function AnalyzePage() {
           {/* Step 1: Industry */}
           {step === 1 && (
             <div className="glass-card rounded-2xl p-6 space-y-5">
-              <h2 className="text-base font-semibold text-fg mb-1">Langkah 1: Informasi Industri</h2>
+              <h2 className="text-[16px] font-semibold text-fg mb-1">Langkah 1: Informasi Industri</h2>
 
               <div>
                 <label className={labelCls}>Kategori Industri *</label>
@@ -209,7 +209,7 @@ export default function AnalyzePage() {
           {/* Step 2: Team & Capital */}
           {step === 2 && (
             <div className="glass-card rounded-2xl p-6 space-y-5">
-              <h2 className="text-base font-semibold text-fg mb-1">Langkah 2: Tim & Modal</h2>
+              <h2 className="text-[16px] font-semibold text-fg mb-1">Langkah 2: Tim & Modal</h2>
 
               <div>
                 <label className={labelCls}>Modal Awal *</label>
@@ -301,7 +301,7 @@ export default function AnalyzePage() {
           {/* Step 3: Description & Submit */}
           {step === 3 && (
             <div className="glass-card rounded-2xl p-6 space-y-5">
-              <h2 className="text-base font-semibold text-fg mb-1">Langkah 3: Deskripsi Ide</h2>
+              <h2 className="text-[16px] font-semibold text-fg mb-1">Langkah 3: Deskripsi Ide</h2>
 
               <div>
                 <div className="flex justify-between mb-2">
@@ -317,6 +317,44 @@ export default function AnalyzePage() {
                   className={inputCls + " resize-none"}
                 />
                 {errors.ideaDescription && <p className={errCls}>{errors.ideaDescription.message}</p>}
+
+                {/* Live input-quality gauge — mirrors the input-quality penalty
+                    the scoring pipeline applies, so users see the consequence
+                    of a vague description before submitting. */}
+                {(() => {
+                  const t = descText.toLowerCase();
+                  const checks = [
+                    { label: "Masalah yang diselesaikan", ok: /masalah|problem|kesulitan|kendala|keluhan/.test(t) },
+                    { label: "Target pengguna", ok: /target|pengguna|pelanggan|user|konsumen|segmen/.test(t) },
+                    { label: "Solusi yang ditawarkan", ok: /solusi|aplikasi|platform|layanan|produk|sistem/.test(t) },
+                    { label: "Rencana pendapatan", ok: /monetisasi|pendapatan|harga|langganan|komisi|revenue|bayar/.test(t) },
+                  ];
+                  const hit = checks.filter((c) => c.ok).length;
+                  const score = hit + (descText.length >= 150 ? 1 : 0);
+                  const verdict = score >= 4 ? { label: "Kuat", cls: "text-emerald-400" }
+                    : score >= 2 ? { label: "Sedang", cls: "text-amber-300" }
+                    : { label: "Lemah", cls: "text-rose-400" };
+                  return (
+                    <div className="mt-3 rounded-xl border border-white/[0.07] bg-white/[0.02] p-3.5">
+                      <div className="flex justify-between items-baseline mb-2">
+                        <span className="text-xs font-medium text-muted">Kualitas masukan</span>
+                        <span className={`text-xs font-semibold ${verdict.cls}`}>{verdict.label}</span>
+                      </div>
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                        {checks.map((c) => (
+                          <span key={c.label} className={`text-[11px] ${c.ok ? "text-emerald-400" : "text-faint"}`}>
+                            {c.ok ? "✓" : "○"} {c.label}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-[11px] text-faint mt-2 leading-relaxed">
+                        Deskripsi yang samar tetap dianalisis, tetapi skor akhir dikenai
+                        penalti kualitas masukan — makin lengkap empat unsur di atas,
+                        makin bisa dipercaya hasilnya.
+                      </p>
+                    </div>
+                  );
+                })()}
               </div>
 
               {error && (
